@@ -1,21 +1,35 @@
 import random
 
+# 1. Choose Difficulty
+print("Choose your difficulty:")
+print("1. Easy (1-10)")
+print("2. Medium (1-50)")
+print("3. Hard (1-100)")
+
+choice = input("Enter 1, 2, or 3: ")
+
+if choice == "1":
+    limit = 10
+elif choice == "2":
+    limit = 50
+else:
+    limit = 100  # Defaults to Hard if they type anything else
+
+num_rounds = int(input("\nHow many questions would you like? "))
 score = 0
-total_questions = 0
 
-while True:
-    num1 = random.randint(1, 10)
-    num2 = random.randint(1, 10)
-
+for i in range(num_rounds):
+    # 2. Use the 'limit' variable here
+    num1 = random.randint(1, limit)
+    num2 = random.randint(1, limit)
+    
+    print(f"\nQuestion {i + 1} of {num_rounds}:")
     user_answer = int(input(f"What is {num1} + {num2}? "))
-    total_questions += 1
 
-    correct_answer = num1 + num2
-    if user_answer == correct_answer:
+    if user_answer == (num1 + num2):
         print("Correct!")
         score += 1
     else:
-        print(f"Incorrect. the right answer was {correct_answer}")
-    choice = input("play again? (y/n): ")
-    if choice == "n": break
-print(f"Game over! Your final score is {score} out of {total_questions}.")
+        print(f"Incorrect. The answer was {num1 + num2}")
+
+print(f"\nGame over! Your final score is {score} out of {num_rounds}.")
