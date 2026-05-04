@@ -1,12 +1,16 @@
 import random
 
-# 1. Choose Difficulty (Keeping your existing logic)
+# 1. Choose Difficulty
 print("Choose your difficulty:")
 print("1. Easy (1-10)")
 print("2. Medium (1-50)")
 print("3. Hard (1-100)")
 
-choice = input("Enter 1, 2, or 3: ")
+while True:
+    choice = input("Enter 1, 2, or 3: ")
+    if choice in ["1", "2", "3"]:
+        break
+    print("Invalid choice. Please enter 1, 2, or 3.")
 
 if choice == "1":
     limit = 10
@@ -15,7 +19,17 @@ elif choice == "2":
 else:
     limit = 100
 
-num_rounds = int(input("\nHow many questions would you like? "))
+# Validate that the number of rounds is a valid whole number
+while True:
+    try:
+        num_rounds = int(input("\nHow many questions would you like? "))
+        if num_rounds > 0:
+            break
+        else:
+            print("Please enter a number greater than zero.")
+    except ValueError:
+        print("Invalid input. Please enter a valid whole number.")
+
 score = 0
 
 # 2. The Game Loop
@@ -23,7 +37,7 @@ for i in range(num_rounds):
     num1 = random.randint(1, limit)
     num2 = random.randint(1, limit)
     
-    # NEW: Pick a random operation
+    # Pick a random operation
     operation = random.choice(['+', '-', '*'])
     
     # Calculate the answer based on the operation
@@ -42,8 +56,13 @@ for i in range(num_rounds):
 
     print(f"\nQuestion {i + 1} of {num_rounds}:")
     
-    # Use the 'operation' variable in the input prompt
-    user_answer = int(input(f"What is {num1} {operation} {num2}? "))
+    # Use a try-except block to handle invalid user answers
+    while True:
+        try:
+            user_answer = int(input(f"What is {num1} {operation} {num2}? "))
+            break
+        except ValueError:
+            print("Invalid input! Please enter a valid whole number.")
 
     if user_answer == correct_answer:
         print("Correct!")
